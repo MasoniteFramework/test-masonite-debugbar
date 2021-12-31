@@ -19,8 +19,10 @@
   <!-- content -->
   <div>
     <!-- TODO later: it will be html -->
-    <template x-for="(message, index) in currentContent">
-      <p><span x-text="index"></span> <span x-text="JSON.stringify(message)"></span></p>
+    <template x-for="(object, index) in currentContent">
+      <div>
+        <span x-html="object.html"></span>
+      </div>
     </template>
   </div>
 </div>

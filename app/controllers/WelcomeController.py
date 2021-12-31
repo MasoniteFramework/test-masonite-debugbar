@@ -1,11 +1,11 @@
 """A WelcomeController Module."""
+from platform import python_version
 from masonite.views import View
 from masonite.response import Response
-from masonite.controllers import Controller
+from masonite.controllers import Controller 
 
-from debugbar.debugger import Debugger
-from debugbar.collectors.MessageCollector import MessageCollector
-from debugbar.collectors.PythonCollector import PythonCollector
+from app.models.User import User
+from wsgi import application
 
 
 class WelcomeController(Controller):
@@ -15,10 +15,13 @@ class WelcomeController(Controller):
         return view.render("welcome")
 
     def debug(self, response: Response):
-        debugger = Debugger()
-        debugger.add_collector(MessageCollector())
-        debugger.add_collector(PythonCollector())
+        print(User.all())
+        print(User.all())
+        print(User.select('name,email').get())
+        debugger = application.make('debugger')
+
 
         debugger.get_collector('messages').add_message("Success")
         debugger.get_collector('messages').add_message("Failure")
+        debugger.get_collector('python').add_message(python_version(), "Python Version")
         return response.json({"data": debugger.to_dict(), "collectors": list(debugger.collectors.keys())})

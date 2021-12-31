@@ -9,26 +9,24 @@ The connections here don't determine the database but determine the "connection"
 They can be named whatever you want.
 """
 DATABASES = {
-    "default": env("DB_CONNECTION", "sqlite"),
+    "default": 'sqlite',
     "sqlite": {
         "driver": "sqlite",
         "database": env("SQLITE_DB_DATABASE", "masonite.sqlite3"),
         "prefix": "",
-        "log_queries": env("DB_LOG"),
+        "log_queries": True,
     },
     "mysql": {
         "driver": "mysql",
-        "host": env("DB_HOST"),
-        "user": env("DB_USERNAME"),
-        "password": env("DB_PASSWORD"),
-        "database": env("DB_DATABASE"),
-        "port": env("DB_PORT"),
-        "prefix": "",
-        "grammar": "mysql",
+        "host": "127.0.0.1",
+        "user": "root",
+        "password": "",
+        "database": "testorm",
+        "port": "3306",
         "options": {
             "charset": "utf8mb4",
         },
-        "log_queries": env("DB_LOG"),
+        "log_queries": True,
     },
     "postgres": {
         "driver": "postgres",
@@ -38,7 +36,6 @@ DATABASES = {
         "database": env("DB_DATABASE"),
         "port": env("DB_PORT"),
         "prefix": "",
-        "grammar": "postgres",
         "log_queries": env("DB_LOG"),
     },
     "mssql": {
