@@ -6,6 +6,7 @@ from masonite.controllers import Controller
 
 from app.models.User import User
 from wsgi import application
+import time
 
 
 class WelcomeController(Controller):
@@ -15,13 +16,16 @@ class WelcomeController(Controller):
         return view.render("welcome")
 
     def debug(self, response: Response):
+        debugger = application.make('debugger')
+        debugger.get_collector("Time").start_measure('user_queries')
         print(User.all())
         print(User.all())
         print(User.select('name,email').get())
-        debugger = application.make('debugger')
+        print(User.select('name,email').get())
+        debugger.get_collector("Time").stop_measure('user_queries')
 
 
         debugger.get_collector('messages').add_message("Success")
         debugger.get_collector('messages').add_message("Failure")
-        debugger.get_collector('python').add_message(python_version(), "Python Version")
+        debugger.get_collector('Environment').add("Python Version", python_version())
         return response.json({"data": debugger.to_dict(), "collectors": list(debugger.collectors.keys())})
