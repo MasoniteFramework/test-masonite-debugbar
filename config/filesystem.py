@@ -5,6 +5,7 @@ from masonite.utils.location import base_path
 DISKS = {
     "default": "local",
     "local": {"driver": "file", "path": base_path("storage/framework/filesystem")},
+    "debug": {"driver": "file", "path": base_path("storage/app/debug")},
     "s3": {
         "driver": "s3",
         "client": env("AWS_CLIENT"),
