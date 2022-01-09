@@ -16,10 +16,7 @@ class WelcomeController(Controller):
 
     def show(self, view: View):
         debugger = application.make('debugger')
-        print(User.all())
-        print(User.all())
-        print(User.select('name,email').get())
-        print(User.select('name,email').get())
+        users = User.with_('profile').select('id').get()
 
 
         debugger.get_collector('messages').add_message("Success")
@@ -30,6 +27,7 @@ class WelcomeController(Controller):
     def debug(self, response: Response):
         requests = []
         files = application.make('storage').disk('debug').get_files()
+        files = sorted(files, key=lambda x: x.name())
         for file in files:
             requests.append({ 
                 "request_id": json.loads(file.content)['__meta']['request_id'],
@@ -41,6 +39,8 @@ class WelcomeController(Controller):
     def get_debug(self, response: Response, request: Request):
         requests = []
         files = application.make('storage').disk('debug').get_files()
+        files = sorted(files, key=lambda x: x.name())
+
         for file in files:
             requests.append({ 
                 "request_id": json.loads(file.content)['__meta']['request_id'],
@@ -52,6 +52,16 @@ class WelcomeController(Controller):
         return response.json({"data": json.loads(file)["data"], "collectors": list(json.loads(file)["data"].keys()), "requests": requests})
 
     def api(self, response: Response, request: Request):
-        users = User.select('name,email').get()
+        users = User.select('password').get()
+
+        return users
+
+    def settings(self, response: Response, request: Request):
+        users = User.select('id').get()
+
+        return users
+
+    def profile(self, response: Response, request: Request):
+        users = User.select('email').get()
 
         return users

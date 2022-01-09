@@ -11,9 +11,22 @@
 {% block content %}
 <div class="h-screen flex flex-col items-center justify-center">
   <div class="text-gray-500 text-5xl mb-10 tracking-wide">
-
+    CONTENT
   </div>
 </div>
 
-{% include "debug.html" %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  axios.get('/api/users').then(function(data){})
+  // axios.get('/api/settings').then(function(data){
+  //   console.log('data', data)
+  // })
+  // axios.get('/api/profiles').then(function(data){
+  //   console.log('data', data)
+  // })
+  // axios.get('/api/me').then(function(data){
+  //   console.log('data', data)
+  // })
+</script>
+
 {% endblock %}
