@@ -9,7 +9,7 @@ The connections here don't determine the database but determine the "connection"
 They can be named whatever you want.
 """
 DATABASES = {
-    "default": 'sqlite',
+    "default": 'mysql',
     "sqlite": {
         "driver": "sqlite",
         "database": env("SQLITE_DB_DATABASE", "masonite.sqlite3"),

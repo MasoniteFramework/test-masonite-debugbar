@@ -1,5 +1,4 @@
 """A WelcomeController Module."""
-from platform import python_version
 from masonite.views import View
 from masonite.response import Response
 from masonite.request import Request
@@ -21,7 +20,6 @@ class WelcomeController(Controller):
 
         debugger.get_collector('messages').add_message("Success")
         debugger.get_collector('messages').add_message("Failure")
-        debugger.get_collector('Environment').add("Python Version", python_version())
         return view.render("welcome")
 
     def debug(self, response: Response):
