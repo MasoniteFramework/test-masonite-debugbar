@@ -3,6 +3,8 @@
 
 {% block head %}
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/default.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
 <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 {% endblock %}
@@ -10,23 +12,32 @@
 
 {% block content %}
 <div class="h-screen flex flex-col items-center justify-center">
-  <div class="text-gray-500 text-5xl mb-10 tracking-wide">
-    CONTENT
+  <div class="mb-10">
+    <button onclick="triggerAjaxRequest()" class="bg-gray-200 rounded text-black p-1">
+      Trigger other AJAX request
+    </button>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js" integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-  axios.get('/api/users').then(function(data){})
-  // axios.get('/api/settings').then(function(data){
-  //   console.log('data', data)
-  // })
-  // axios.get('/api/profiles').then(function(data){
-  //   console.log('data', data)
-  // })
-  // axios.get('/api/me').then(function(data){
-  //   console.log('data', data)
-  // })
+  setTimeout(
+    function () {
+      axios.get('/api/users').then(function (data) { })
+    },
+    2000
+  )
+  setTimeout(
+      function () {
+        fetch('/api/profile').then(function (data) { })
+      },
+      3000
+    )
+  const triggerAjaxRequest = () => {
+    axios.get('/api/me').then(function(data){
+      console.log('data', data)
+    })
+  }
 </script>
 
 {% endblock %}

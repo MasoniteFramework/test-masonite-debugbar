@@ -2,7 +2,7 @@
 from masonite.views import View
 from masonite.response import Response
 from masonite.request import Request
-from masonite.controllers import Controller 
+from masonite.controllers import Controller
 import json
 
 from app.models.User import User
@@ -18,8 +18,8 @@ class WelcomeController(Controller):
         users = User.with_('profile').select('id').get()
 
 
-        debugger.get_collector('messages').add_message("Success")
-        debugger.get_collector('messages').add_message("Failure")
+        debugger.get_collector('Messages').add_message("Success")
+        debugger.get_collector('Messages').add_message("Failure")
         return view.render("welcome")
 
     def debug(self, response: Response):
@@ -27,7 +27,7 @@ class WelcomeController(Controller):
         files = application.make('storage').disk('debug').get_files()
         files = sorted(files, key=lambda x: x.name())
         for file in files:
-            requests.append({ 
+            requests.append({
                 "request_id": json.loads(file.content)['__meta']['request_id'],
                 "request_url": json.loads(file.content)['__meta']['request_url']
             })
@@ -40,7 +40,7 @@ class WelcomeController(Controller):
         files = sorted(files, key=lambda x: x.name())
 
         for file in files:
-            requests.append({ 
+            requests.append({
                 "request_id": json.loads(file.content)['__meta']['request_id'],
                 "request_url": json.loads(file.content)['__meta']['request_url']
             })
@@ -56,6 +56,8 @@ class WelcomeController(Controller):
 
     def settings(self, response: Response, request: Request):
         users = User.select('id').get()
+        debugger = application.make('debugger')
+        debugger.get_collector('Messages').add_message("Success from settings")
 
         return users
 
