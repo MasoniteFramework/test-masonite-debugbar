@@ -1,5 +1,6 @@
 """UserTableSeeder Seeder."""
 from masoniteorm.seeds import Seeder
+from masonite.facades import Hash
 
 from app.models.User import User
 
@@ -11,7 +12,8 @@ class UserTableSeeder(Seeder):
             {
                 "name": "idmann509",
                 "email": "idmann509@gmail.com",
-                "password": "secret",
+                "remember_token": "idmann509@gmail.com",
+                "password": Hash.make("secret"),
                 "phone": "+123456789",
             }
         )
